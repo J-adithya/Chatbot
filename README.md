@@ -4,7 +4,7 @@ This project is intended to showcase my work done during my internship at the co
 # Introduction-
 Welcome to the MuonChat repository! MuonChat is a conversational AI chatbot designed to provide intelligent and engaging interactions with users. Leveraging the power of the Blenderbot model, a state-of-the-art conversational agent developed by Facebook AI, MuonChat is fine-tuned using a variety of datasets to enhance its knowledge and response capabilities in AI, programming, and general knowledge domains.
 
-# Features
+# Features-
 1. Robust Dataset Integration
 MuonChat is trained on a combination of datasets to ensure comprehensive coverage of various topics:
 
