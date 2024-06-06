@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="theme-toggle-container">
+        <button id="theme-toggle" class="theme-toggle"></button>
+    </div>
+    <div class="main-container">
+        <div class="chat-history-container">
+            <div id="chat-history" class="chat-history">
+                <!-- Placeholder for chat history items -->
+                <div class="chat-history-item">Chat 1</div>
+                <div class="chat-history-item">Chat 2</div>
+                <div class="chat-history-item">Chat 3</div>
+            </div>
+        </div>
+        <div class="chat-container">
+            <div id="chat-log" class="chat-log"></div>
+            <div id="loading" class="loading"></div>
+            <div id="typing-indicator" class="typing-indicator">Bot is typing...</div>
+            <div class="input-container">
+                <textarea id="chat-input" class="chat-input" placeholder="Type your message..."></textarea>
+                <div class="emoji-picker-container">
+                    <button id="emoji-button" class="emoji-button">😀</button>
+                    <div id="emoji-picker" class="emoji-picker"></div>
+                </div>
+                <button id="send-button" class="send-button" onclick="sendMessage()">Send</button>
+                <input type="file" id="file-upload" class="file-upload" />
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function appendMessage(sender, message) {
+            const chatLog = document.getElementById('chat-log');
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', sender);
+            messageDiv.textContent = `${message}`;
+            chatLog.appendChild(messageDiv);
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+
+        function showThinkingAnimation() {
+            document.getElementById('loading').classList.add('show');
+        }
+
+        function hideThinkingAnimation() {
+            document.getElementById('loading').classList.remove('show');
+        }
+
+        function showTypingIndicator() {
+            document.getElementById('typing-indicator').classList.add('show');
+        }
+
+        function hideTypingIndicator() {
+            document.getElementById('typing-indicator').classList.remove('show');
+        }
+
+        function sendMessage() {
+            const chatInput = document.getElementById('chat-input');
+            const message = chatInput.value.trim();
+            if (message !== '') {
+                appendMessage('user', message);
+                chatInput.value = '';
+
+                showThinkingAnimation();
+                showTypingIndicator();
+
+                fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: message })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    appendMessage('bot', data.reply);
+                    hideThinkingAnimation();
+                    hideTypingIndicator();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    hideThinkingAnimation();
+                    hideTypingIndicator();
+                });
+            }
+        }
+
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+        });
+
+        document.getElementById('emoji-button').addEventListener('click', () => {
+            document.getElementById('emoji-picker').classList.toggle('show');
+        });
+
+        document.getElementById('emoji-picker').addEventListener('click', (event) => {
+            if (event.target.classList.contains('emoji')) {
+                const chatInput = document.getElementById('chat-input');
+                chatInput.value += event.target.textContent;
+            }
+        });
+
+        // Populate emoji picker with emojis
+        const emojis = ['😀', '😂', '😅', '😉', '😍', '😎', '😢', '😜', '👍', '👎', '🙏'];
+        const emojiPicker = document.getElementById('emoji-picker');
+        emojis.forEach(emoji => {
+            const span = document.createElement('span');
+            span.classList.add('emoji');
+            span.textContent = emoji;
+            emojiPicker.appendChild(span);
+        });
+
+        document.getElementById('file-upload').addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const formData = new FormData();
+                formData.append('file', file);
+
+                showThinkingAnimation();
+
+                fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    appendMessage('bot', data.reply);
+                    hideThinkingAnimation();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    hideThinkingAnimation();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
