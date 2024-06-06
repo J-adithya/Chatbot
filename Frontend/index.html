@@ -14,9 +14,9 @@
         <div class="chat-history-container">
             <div id="chat-history" class="chat-history">
                 <!-- Placeholder for chat history items -->
-                <div class="chat-history-item">Chat 1</div>
-                <div class="chat-history-item">Chat 2</div>
-                <div class="chat-history-item">Chat 3</div>
+                <div class="chat-history-item" onclick="loadChat('Chat 1')">Chat 1</div>
+                <div class="chat-history-item" onclick="loadChat('Chat 2')">Chat 2</div>
+                <div class="chat-history-item" onclick="loadChat('Chat 3')">Chat 3</div>
             </div>
         </div>
         <div class="chat-container">
@@ -24,7 +24,7 @@
             <div id="loading" class="loading"></div>
             <div id="typing-indicator" class="typing-indicator">Bot is typing...</div>
             <div class="input-container">
-                <textarea id="chat-input" class="chat-input" placeholder="Type your message..."></textarea>
+                <textarea id="chat-input" class="chat-input" placeholder="Type your message..." rows="1"></textarea>
                 <div class="emoji-picker-container">
                     <button id="emoji-button" class="emoji-button">😀</button>
                     <div id="emoji-picker" class="emoji-picker"></div>
@@ -32,10 +32,17 @@
                 <button id="send-button" class="send-button" onclick="sendMessage()">Send</button>
                 <input type="file" id="file-upload" class="file-upload" />
             </div>
+            <div id="user-loading" class="user-loading"></div>
         </div>
     </div>
 
     <script>
+        let chatLogs = {
+            "Chat 1": [],
+            "Chat 2": [],
+            "Chat 3": []
+        };
+
         function appendMessage(sender, message) {
             const chatLog = document.getElementById('chat-log');
             const messageDiv = document.createElement('div');
@@ -43,6 +50,9 @@
             messageDiv.textContent = `${message}`;
             chatLog.appendChild(messageDiv);
             chatLog.scrollTop = chatLog.scrollHeight;
+
+            const activeChat = document.querySelector('.chat-history-item.active').textContent;
+            chatLogs[activeChat].push({ sender, message });
         }
 
         function showThinkingAnimation() {
@@ -67,6 +77,9 @@
             if (message !== '') {
                 appendMessage('user', message);
                 chatInput.value = '';
+                chatInput.style.height = 'auto';
+
+                document.getElementById('user-loading').classList.add('show');
 
                 showThinkingAnimation();
                 showTypingIndicator();
@@ -83,13 +96,27 @@
                     appendMessage('bot', data.reply);
                     hideThinkingAnimation();
                     hideTypingIndicator();
+                    document.getElementById('user-loading').classList.remove('show');
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     hideThinkingAnimation();
                     hideTypingIndicator();
+                    document.getElementById('user-loading').classList.remove('show');
                 });
             }
+        }
+
+        function loadChat(chatName) {
+            const chatLog = document.getElementById('chat-log');
+            chatLog.innerHTML = '';
+            chatLogs[chatName].forEach(message => {
+                appendMessage(message.sender, message.message);
+            });
+            document.querySelectorAll('.chat-history-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`.chat-history-item:contains(${chatName})`).classList.add('active');
         }
 
         document.getElementById('theme-toggle').addEventListener('click', () => {
@@ -139,6 +166,16 @@
                     hideThinkingAnimation();
                 });
             }
+        });
+
+        const chatInput = document.getElementById('chat-input');
+        chatInput.addEventListener('input', () => {
+            chatInput.style.height = 'auto';
+            chatInput.style.height = `${chatInput.scrollHeight}px`;
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadChat('Chat 1');
         });
     </script>
 </body>
