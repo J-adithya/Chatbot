@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatBot</title>
+    <title>NLP-Powered Assistant</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,48 +11,32 @@
         <button id="theme-toggle" class="theme-toggle"></button>
     </div>
     <div class="main-container">
-        <div class="chat-history-container">
-            <div id="chat-history" class="chat-history">
-                <!-- Placeholder for chat history items -->
-                <div class="chat-history-item" onclick="loadChat('Chat 1')">Chat 1</div>
-                <div class="chat-history-item" onclick="loadChat('Chat 2')">Chat 2</div>
-                <div class="chat-history-item" onclick="loadChat('Chat 3')">Chat 3</div>
-            </div>
-        </div>
         <div class="chat-container">
             <div id="chat-log" class="chat-log"></div>
             <div id="loading" class="loading"></div>
             <div id="typing-indicator" class="typing-indicator">Bot is typing...</div>
             <div class="input-container">
-                <textarea id="chat-input" class="chat-input" placeholder="Type your message..." rows="1"></textarea>
-                <div class="emoji-picker-container">
-                    <button id="emoji-button" class="emoji-button">😀</button>
-                    <div id="emoji-picker" class="emoji-picker"></div>
-                </div>
+                <textarea id="chat-input" class="chat-input" placeholder="Type your message..."></textarea>
                 <button id="send-button" class="send-button" onclick="sendMessage()">Send</button>
-                <input type="file" id="file-upload" class="file-upload" />
+                <button id="clear-chat-button" class="clear-chat-button" onclick="clearChat()">Clear Chat</button>
+                <button id="download-chat-button" class="download-chat-button" onclick="downloadChat()">📥</button>
             </div>
-            <div id="user-loading" class="user-loading"></div>
         </div>
     </div>
 
     <script>
-        let chatLogs = {
-            "Chat 1": [],
-            "Chat 2": [],
-            "Chat 3": []
-        };
-
         function appendMessage(sender, message) {
             const chatLog = document.getElementById('chat-log');
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message', sender);
             messageDiv.textContent = `${message}`;
-            chatLog.appendChild(messageDiv);
+            
+            const messageContainer = document.createElement('div');
+            messageContainer.classList.add('message-container');
+            messageContainer.appendChild(messageDiv);
+            
+            chatLog.appendChild(messageContainer);
             chatLog.scrollTop = chatLog.scrollHeight;
-
-            const activeChat = document.querySelector('.chat-history-item.active').textContent;
-            chatLogs[activeChat].push({ sender, message });
         }
 
         function showThinkingAnimation() {
@@ -77,9 +61,6 @@
             if (message !== '') {
                 appendMessage('user', message);
                 chatInput.value = '';
-                chatInput.style.height = 'auto';
-
-                document.getElementById('user-loading').classList.add('show');
 
                 showThinkingAnimation();
                 showTypingIndicator();
@@ -96,86 +77,31 @@
                     appendMessage('bot', data.reply);
                     hideThinkingAnimation();
                     hideTypingIndicator();
-                    document.getElementById('user-loading').classList.remove('show');
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     hideThinkingAnimation();
                     hideTypingIndicator();
-                    document.getElementById('user-loading').classList.remove('show');
                 });
             }
         }
 
-        function loadChat(chatName) {
+        function clearChat() {
             const chatLog = document.getElementById('chat-log');
             chatLog.innerHTML = '';
-            chatLogs[chatName].forEach(message => {
-                appendMessage(message.sender, message.message);
-            });
-            document.querySelectorAll('.chat-history-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            document.querySelector(`.chat-history-item:contains(${chatName})`).classList.add('active');
+        }
+
+        function downloadChat() {
+            const chatLog = document.getElementById('chat-log').innerText;
+            const blob = new Blob([chatLog], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'chat_log.txt';
+            a.click();
         }
 
         document.getElementById('theme-toggle').addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
-        });
-
-        document.getElementById('emoji-button').addEventListener('click', () => {
-            document.getElementById('emoji-picker').classList.toggle('show');
-        });
-
-        document.getElementById('emoji-picker').addEventListener('click', (event) => {
-            if (event.target.classList.contains('emoji')) {
-                const chatInput = document.getElementById('chat-input');
-                chatInput.value += event.target.textContent;
-            }
-        });
-
-        // Populate emoji picker with emojis
-        const emojis = ['😀', '😂', '😅', '😉', '😍', '😎', '😢', '😜', '👍', '👎', '🙏'];
-        const emojiPicker = document.getElementById('emoji-picker');
-        emojis.forEach(emoji => {
-            const span = document.createElement('span');
-            span.classList.add('emoji');
-            span.textContent = emoji;
-            emojiPicker.appendChild(span);
-        });
-
-        document.getElementById('file-upload').addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const formData = new FormData();
-                formData.append('file', file);
-
-                showThinkingAnimation();
-
-                fetch('/upload', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    appendMessage('bot', data.reply);
-                    hideThinkingAnimation();
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    hideThinkingAnimation();
-                });
-            }
-        });
-
-        const chatInput = document.getElementById('chat-input');
-        chatInput.addEventListener('input', () => {
-            chatInput.style.height = 'auto';
-            chatInput.style.height = `${chatInput.scrollHeight}px`;
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            loadChat('Chat 1');
         });
     </script>
 </body>
