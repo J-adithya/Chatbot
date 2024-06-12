@@ -1,44 +1,55 @@
-# Chatbot-
+# NLP-Powered Chatbot
 This project is intended to showcase my work done during my internship at the company Muonium.ai
 
-# Introduction-
-Welcome to the MuonChat repository! MuonChat is a conversational AI chatbot designed to provide intelligent and engaging interactions with users. Leveraging the power of the Blenderbot model, a state-of-the-art conversational agent developed by Facebook AI, MuonChat is fine-tuned using a variety of datasets to enhance its knowledge and response capabilities in AI, programming, and general knowledge domains.
+# Introduction
+This project is an NLP-powered chatbot built using Flask for the backend and HTML, CSS, and JavaScript for the frontend. The chatbot interface supports Markdown formatting, including bold and italics, and allows users to enter multiline messages using Shift + Enter.
 
-# Features-
-1. Robust Dataset Integration
-MuonChat is trained on a combination of datasets to ensure comprehensive coverage of various topics:
+# Table of Contents
+Features
+Dependencies
+Installation
+Usage
+Project Structure
+License
 
-CodeSearchNet: Provides knowledge about programming, specifically Python, enhancing the bot's capability to handle coding-related queries.
-AI2 ARC: Focuses on challenging science questions, strengthening the bot's ability to address complex queries.
-SQuAD v2: A widely recognized QA dataset that improves the bot's general knowledge and comprehension abilities.
+# Features
+Markdown formatting support (bold, italics, etc.)
+Multiline message input using Shift + Enter
+Real-time message sending with Enter
+Typing indicators and loading animation
+Light and dark theme toggle
+Clear chat and download chat functionalities
 
-2. Advanced Model Fine-Tuning
-Using the transformers library by Hugging Face, MuonChat fine-tunes the Blenderbot model to boost its conversational skills:
+# Dependencies
 
-Efficient Tokenization and Mapping: Converts datasets into the model's required input format.
-Mixed Precision Training: Utilizes fp16 mixed precision training for faster and more efficient model training.
-Custom Training Parameters: Balanced training parameters to optimize performance and computational efficiency.
+Backend:
+Flask - A micro web framework for Python
+requests - A simple HTTP library for Python
 
-3. User-Friendly Web Interface
-MuonChat provides a seamless user experience through a web interface built with Flask:
+Frontend:
+Marked.js - A markdown parser and compiler
 
-Main Interface (/): Serves the main user interface of the chatbot.
-Chat Endpoint (/chat): Processes POST requests to handle user input and generate responses.
+# Installation
 
-4. Professional Response Post-Processing
-To ensure polished and professional interactions, MuonChat responses undergo post-processing:
+1. **Clone the repository:**
 
-Capitalization: The first letter of the response is capitalized.
-Punctuation: Ensures the response ends with appropriate punctuation.
+```bash
+git clone https://github.com/J-adithya/Chatbot.git
+cd nlp-chatbot
+```
 
-5. Easy Deployment
-MuonChat is designed for straightforward deployment:
+2. **Set up a virtual environment and install dependencies:**
 
-Model and Tokenizer Saving: Fine-tuned model and tokenizer are saved for easy loading and deployment.
-Flask Integration: The Flask app can be run locally for development or deployed on a server for production use.
+```
+python -m venv chatbot_venv
+source chatbot_venv/bin/activate  # On Windows use `chatbot_venv\Scripts\activate`
+pip install Flask requests
+```
 
-6. Interactive UI
-MuonChat features an intuitive and interactive user interface:
+3. Run the Flask server:
+```
+python app.py
+```
 
 Modern Design: A clean and modern interface for a smooth user experience.
 Responsive Layout: Ensures compatibility across various devices and screen sizes.
