@@ -5,12 +5,12 @@ This project is intended to showcase my work done during my internship at the co
 This project is an NLP-powered chatbot built using Flask for the backend and HTML, CSS, and JavaScript for the frontend. The chatbot interface supports Markdown formatting, including bold and italics, and allows users to enter multiline messages using Shift + Enter.
 
 # Table of Contents
-Features  
-Dependencies  
-Installation  
-Usage  
-Project Structure  
-License  
+- Features  
+- Dependencies  
+- Installation  
+- Usage  
+- Project Structure  
+- License  
 
 # Features
 Markdown formatting support (bold, italics, etc.)  
@@ -26,7 +26,7 @@ Backend:
 Flask - A micro web framework for Python  
 requests - A simple HTTP library for Python  
 
-Frontend:
+Frontend:  
 Marked.js - A markdown parser and compiler
 
 # Installation
@@ -35,7 +35,7 @@ Marked.js - A markdown parser and compiler
 
 ```bash
 git clone https://github.com/J-adithya/Chatbot.git
-cd nlp-chatbot
+cd Chatbot
 ```
 
 2. **Set up a virtual environment and install dependencies:**
@@ -51,6 +51,7 @@ pip install Flask requests
 python app.py
 ```
 **Attractive UI**  
+
 Modern Design: A clean and modern interface for a smooth user experience.  
 Responsive Layout: Ensures compatibility across various devices and screen sizes.  
 Instant Feedback: Provides immediate responses to user queries, enhancing engagement.    
