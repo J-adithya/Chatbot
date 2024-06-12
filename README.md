@@ -50,6 +50,7 @@ pip install Flask requests
 ```
 python app.py
 ```
+
 **Attractive UI**  
 
 Modern Design: A clean and modern interface for a smooth user experience.  
