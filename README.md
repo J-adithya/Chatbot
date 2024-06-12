@@ -50,8 +50,8 @@ pip install Flask requests
 ```
 python app.py
 ```
-
-Modern Design: A clean and modern interface for a smooth user experience.
-Responsive Layout: Ensures compatibility across various devices and screen sizes.
-Instant Feedback: Provides immediate responses to user queries, enhancing engagement.
+** Attractive UI **  
+Modern Design: A clean and modern interface for a smooth user experience.  
+Responsive Layout: Ensures compatibility across various devices and screen sizes.  
+Instant Feedback: Provides immediate responses to user queries, enhancing engagement.    
 
