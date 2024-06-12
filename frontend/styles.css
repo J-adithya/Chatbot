@@ -60,6 +60,7 @@ body {
     background-color: #565869;
     color: #d1d5db;
     align-self: flex-start;
+    white-space: pre-wrap; /* Preserve whitespace and line breaks */
 }
 
 .input-container {
