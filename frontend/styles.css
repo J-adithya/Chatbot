@@ -1,7 +1,7 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #343541;
-    color: #d1d5db;
+    background-color: #1c1e26;
+    color: #e5e5e5;
     margin: 0;
     padding: 0;
     display: flex;
@@ -13,16 +13,16 @@ body {
 .main-container {
     display: flex;
     width: 100%;
-    max-width: 1200px;
+    max-width: 800px;
     height: 80vh;
-    background-color: #343541;
+    background-color: #1f2029;
     border-radius: 10px;
     overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .chat-container {
     width: 100%;
-    background-color: #40414f;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -33,7 +33,7 @@ body {
     flex-grow: 1;
     overflow-y: auto;
     padding: 20px;
-    border-bottom: 1px solid #565869;
+    border-bottom: 1px solid #3c3f52;
 }
 
 .message-container {
@@ -48,17 +48,19 @@ body {
     max-width: 75%;
     word-wrap: break-word;
     display: inline-block;
+    background-color: #282a36;
+    color: #e5e5e5;
 }
 
 .user {
-    background-color: #1a73e8;
+    background-color: #6272a4;
     color: white;
     align-self: flex-end;
 }
 
 .bot {
-    background-color: #565869;
-    color: #d1d5db;
+    background-color: #44475a;
+    color: #e5e5e5;
     align-self: flex-start;
     white-space: pre-wrap; /* Preserve whitespace and line breaks */
 }
@@ -66,68 +68,62 @@ body {
 .input-container {
     display: flex;
     padding: 10px;
-    border-top: 1px solid #565869;
-    background-color: #40414f;
+    border-top: 1px solid #3c3f52;
+    background-color: #1f2029;
 }
 
 .chat-input {
     flex-grow: 1;
     resize: none;
-    border: 1px solid #565869;
+    border: none;
     border-radius: 5px;
     padding: 10px;
     margin-right: 10px;
-    background-color: #565869;
-    color: #d1d5db;
+    background-color: #282a36;
+    color: #e5e5e5;
+    font-size: 14px;
 }
 
 .chat-input:focus {
     outline: none;
-    border-color: #1a73e8;
+    border: 1px solid #6272a4;
+}
+
+.send-button, .clear-chat-button, .download-chat-button {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+    margin-left: 10px;
 }
 
 .send-button {
-    background-color: white;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    background-color: #6272a4;
+    color: white;
 }
 
 .send-button:hover {
-    background-color: #d1d5db;
+    background-color: #3cd36b;
 }
 
 .clear-chat-button {
-    background-color: #f44336;
+    background-color: #ff5555;
     color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-left: 10px;
 }
 
 .clear-chat-button:hover {
-    background-color: #d32f2f;
+    background-color: #ff4444;
 }
 
 .download-chat-button {
-    background-color: #40414f;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-left: 10px;
+    background-color: #8be9fd;
+    color: #282a36;
 }
 
 .download-chat-button:hover {
-    background-color: #d1d5db;
+    background-color: #6bdde7;
 }
 
 .loading {
@@ -136,8 +132,8 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 5px solid #343541;
-    border-top: 5px solid #1a73e8;
+    border: 5px solid #1f2029;
+    border-top: 5px solid #6272a4;
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -157,7 +153,7 @@ body {
     display: none;
     margin: 10px;
     font-style: italic;
-    color: #888;
+    color: #8be9fd;
 }
 
 .typing-indicator.show {
@@ -171,7 +167,7 @@ body {
 }
 
 .theme-toggle {
-    background-color: #1a73e8;
+    background-color: #6272a4;
     color: white;
     border: none;
     border-radius: 50%;
@@ -190,12 +186,12 @@ body {
 }
 
 body.light-mode {
-    background-color: #343541; /* Updated to ChatGPT's UI grey color */
+    background-color: #f0f0f0; /* Updated to light mode */
     color: #000000;
 }
 
 body.light-mode .chat-container {
-    background-color: #f0f0f0;
+    background-color: #ffffff;
 }
 
 body.light-mode .chat-input {
@@ -204,18 +200,19 @@ body.light-mode .chat-input {
 }
 
 body.light-mode .send-button {
-    background-color: #dfe2e5;
+    background-color: #007bff;
+    color: white;
 }
 
 body.light-mode .clear-chat-button {
-    background-color: #f44336;
+    background-color: #ff5555;
 }
 
 body.light-mode .user {
-    background-color: #1a73e8;
+    background-color: #007bff;
 }
 
 body.light-mode .bot {
-    background-color: #565869;
-    color: rgb(255, 255, 255);
+    background-color: #e5e5e5;
+    color: #000000;
 }
