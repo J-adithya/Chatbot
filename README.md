@@ -60,6 +60,7 @@ This project requires LM Studio to be installed on your local machine. LM Studio
 Download and Install LM Studio:
 
 Visit the LM Studio GitHub repository or the official website to download the latest version of LM Studio.
+
 Follow the installation instructions for your operating system (Windows, macOS, Linux).
 Load the Llama 8B Instruct Model: (Any model of your choice can also be used)
 
@@ -70,27 +71,22 @@ Navigate to the Local Server section.
 Select the "Llama 8B Instruct" model from the available models.
 Start the server by clicking on the Start Server button.
 Ensure that the server is running at http://localhost:1234/v1/chat/completions.
-Configure the Flask App:
+
+**Configure the Flask App:**
 
 The Flask app in this project is configured to interact with the LM Studio server at http://localhost:1234/v1/chat/completions.
 Ensure that the LM Studio server is running before you start the Flask server. 
 
 This setup allows for custom fine tuning of the model's responses in the system prompt panel (Make sure to reload the model to affect changes).  
 
-**User Experience and Design Mindmap**
+# User Experience and Design Mindmap
 
 -To interact with the chatbot, simply type your message in the input box and press Enter.
-
 -Use Shift + Enter to enter multiline messages.
-
 -Toggle between light and dark themes using the theme toggle button.
-
 -Clear the chat or download the conversation using the provided buttons.
-
 -Modern Design: A clean and modern interface for a smooth user experience.  
-
 -Responsive Layout: Ensures compatibility across various devices and screen sizes.
-
 -Instant Feedback: Provides immediate responses to user queries, enhancing engagement.
 
 **Project Structure**
