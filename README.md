@@ -53,11 +53,11 @@ python app.py
 ```
 
 
-**LM Studio Installation and Model Setup**  
+# LM Studio Installation and Model Setup
 
 This project requires LM Studio to be installed on your local machine. LM Studio is used to run the Llama 8B Instruct model on a local server, which the chatbot interacts with. Follow the steps below to set up LM Studio:
 
-Download and Install LM Studio:
+**Download and Install LM Studio:**
 
 Visit the LM Studio GitHub repository or the official website to download the latest version of LM Studio.
 
