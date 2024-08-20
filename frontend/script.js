@@ -3,17 +3,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const chatLog = document.getElementById('chat-log');
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('message', sender);
-        
+
         if (sender === 'bot') {
-            messageDiv.innerHTML = message.replace(/\n/g, '<br>'); // Preserve line breaks
+            // Replace **bold text** with <b>bold text</b>
+            const formattedMessage = message.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+            messageDiv.innerHTML = formattedMessage; // Allow HTML for bot messages
         } else {
-            messageDiv.textContent = `${message}`;
+            messageDiv.textContent = message; // Use textContent for user messages to prevent HTML injection
         }
 
         const messageContainer = document.createElement('div');
         messageContainer.classList.add('message-container');
         messageContainer.appendChild(messageDiv);
-        
+
         chatLog.appendChild(messageContainer);
         chatLog.scrollTop = chatLog.scrollHeight;
     }
@@ -88,7 +90,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     document.getElementById('chat-input').addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
             sendMessage();
         }
