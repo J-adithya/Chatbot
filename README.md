@@ -80,11 +80,17 @@ This setup allows for custom fine tuning of the model's responses in the system 
 **User Experience and Design Mindmap**
 
 -To interact with the chatbot, simply type your message in the input box and press Enter.
+
 -Use Shift + Enter to enter multiline messages.
+
 -Toggle between light and dark themes using the theme toggle button.
+
 -Clear the chat or download the conversation using the provided buttons.
+
 -Modern Design: A clean and modern interface for a smooth user experience.  
--Responsive Layout: Ensures compatibility across various devices and screen sizes.  
+
+-Responsive Layout: Ensures compatibility across various devices and screen sizes.
+
 -Instant Feedback: Provides immediate responses to user queries, enhancing engagement.
 
 **Project Structure**
